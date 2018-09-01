@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' ">
@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0-preview-20180610-02" />
     <ProjectReference Include="..\Humanizer\Humanizer.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46' ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461' ">
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <PackageReference Include="PublicApiGenerator" Version="7.0.1" />
     <PackageReference Include="ApiApprover" Version="7.0.1" />

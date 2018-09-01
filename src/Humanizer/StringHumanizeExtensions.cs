@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Humanizer
@@ -20,7 +21,25 @@ namespace Humanizer
 
         private static string FromUnderscoreDashSeparatedWords(string input)
         {
-            return string.Join(" ", input.Split(new[] { '_', '-' }));
+            var span = input.AsSpan();
+            var copySpan = new Span<char>(new char[input.Length]);
+            span.CopyTo(copySpan);
+
+            FromUnderscoreDashSeparatedWords(copySpan);
+
+            return copySpan.ToString();
+        }
+
+        private static Span<char> FromUnderscoreDashSeparatedWords(Span<char> span)
+        {
+            for (int i = 0; i < span.Length; i++)
+            {
+                var character = span[i];
+                if (character == '_' || character == '-')
+                    span[i] = ' ';
+            }
+
+            return span; // Fluent api it's ok? Or better just return void?
         }
 
         private static string FromPascalCase(string input)
