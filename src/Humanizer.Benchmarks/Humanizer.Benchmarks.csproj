@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
@@ -17,5 +17,13 @@
       <Aliases>HumanizerSpanRef</Aliases>
     </ProjectReference>
   </ItemGroup>
+
+  <Target Name="ChangeAliases" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Humanizer' AND %(Identity)' != '..\Humanizer\Humanizer.csproj'">
+        <Aliases>HumanizerRegularRef</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
 
 </Project>

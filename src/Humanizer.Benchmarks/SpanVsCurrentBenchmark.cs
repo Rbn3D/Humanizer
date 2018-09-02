@@ -1,10 +1,11 @@
 ﻿extern alias HumanizerSpanRef;
+extern alias HumanizerRegularRef;
 
 using System;
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using HumanizerRegular = global::Humanizer;
+using HumanizerRegular = HumanizerRegularRef.Humanizer;
 using HumanizerSpan = HumanizerSpanRef.Humanizer;
 
 namespace Humanizer.Benchmarks
