@@ -1,3 +1,5 @@
+﻿using System;
+
 namespace Humanizer
 {
     /// <summary>
@@ -8,8 +10,14 @@ namespace Humanizer
         /// <summary>
         /// Transform the input
         /// </summary>
-        /// <param name="input">String to be transformed</param>
+        /// <param name="input">ReadOnlySpan/String to be transformed</param>
         /// <returns></returns>
-        string Transform(string input);
+        string Transform(ReadOnlySpan<char> input);
+
+        /// <summary>
+        /// Transforms the input in place, using a Span
+        /// </summary>
+        /// <param name="input">Span to be transformed</param>
+        void TransformInPlace(Span<char> input);
     }
 }

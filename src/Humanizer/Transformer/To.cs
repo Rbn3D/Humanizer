@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Humanizer
 {
@@ -15,7 +16,20 @@ namespace Humanizer
         /// <returns></returns>
         public static string Transform(this string input, params IStringTransformer[] transformers)
         {
-            return transformers.Aggregate(input, (current, stringTransformer) => stringTransformer.Transform(current));
+            return transformers.Aggregate(input, (current, stringTransformer) => stringTransformer.Transform(current.AsSpan()));
+        }
+
+        /// <summary>
+        /// Transforms in-place a string represented by a span using the provided transformers. Transformations are applied in the provided order.
+        /// 
+        /// This overload is supposed to be faster than the regular Transform
+        /// </summary>
+        /// <param name="input">A Span that represents the string</param>
+        /// <param name="transformers"></param>
+        public static void TransformInPlace(this Span<char> input, params IStringTransformer[] transformers)
+        {
+            foreach (var tr in transformers)
+                tr.TransformInPlace(input);
         }
 
         /// <summary>

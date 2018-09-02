@@ -1,12 +1,25 @@
-using System.Globalization;
+﻿using System;
 
 namespace Humanizer
 {
     internal class ToLowerCase : IStringTransformer
     {
-        public string Transform(string input)
+        public string Transform(ReadOnlySpan<char> input)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToLower(input);
+            var copySpan = new Span<char>(new char[input.Length]);
+            input.CopyTo(copySpan);
+
+            TransformInPlace(copySpan);
+
+            return copySpan.ToString();
+        }
+
+        public void TransformInPlace(Span<char> input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                input[i] = Char.ToLower(input[i]);
+            }
         }
     }
 }
