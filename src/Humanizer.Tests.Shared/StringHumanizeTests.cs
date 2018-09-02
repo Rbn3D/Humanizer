@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Humanizer.Tests
 {
@@ -22,6 +23,14 @@ namespace Humanizer.Tests
         public void CanHumanizeStringInPascalCase(string input, string expectedResult)
         {
             Assert.Equal(expectedResult, input.Humanize());
+
+            var readOnlyInput = input.AsSpan();
+            var spanInput = new Span<char>(new char[input.Length]);
+            readOnlyInput.CopyTo(spanInput);
+
+            var resultSpan = spanInput.Humanize();
+
+            Assert.Equal(expectedResult, resultSpan.ToString());
         }
 
         [Theory, UseCulture("tr-TR")]

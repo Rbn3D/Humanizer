@@ -111,7 +111,7 @@ namespace Humanizer
                         idxInput--;
                         enumerator.Current = ' ';
                     }
-                    else if (idxInput <= (input.Length - 1))
+                    else if (idxInput <= (input.Length - 1) && input[idxInput] != ' ')
                         enumerator.Current = input[idxInput];
                 }
             }
